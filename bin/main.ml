@@ -1,24 +1,31 @@
-(* let () = print_endline "Hello, World!";
-Printf.printf "String:%s %d\n" "Hi" 2;; *)
 let file = "1_1.in"
 
 open Core
-(* let contents = In_channel.read_all file *)
-let lines = In_channel.read_lines file
 
-let fst = List.nth lines 0;;
-match fst with 
-| Some v -> print_endline v
-| None -> ()
+(* int list to concatenated number (duplicate if needed) *)
+  (* [1,2,3] -> 13, [7] -> 77 *)
+let list_to_number (lst: int list) : int = 
+  let last_idx = (List.length lst) - 1 in
+  let hd = Option.value ~default:0 (List.hd lst) in
+  let tl = Option.value ~default:0 (List.nth lst last_idx) in
+  hd * 10  + tl
 
 
-(* function that takes a string line and outputs list of nums inside (length 1 or 2 only) *)
-let string_to_nums (str: string) : int list = 
+(* function that takes a string line and outputs first + last int concat as number *)
+let string_to_num (str: string) : int = 
   str
   |> String.to_list
   |> List.map ~f:Char.get_digit
   |> List.filter_map ~f: (fun x -> x)
+  |> list_to_number
 
 
-  
+let lines = In_channel.read_lines file
+
+(* Day 1 Pt. 1 *)
+let sum = lines 
+|> List.map ~f: string_to_num 
+|> List.fold ~init:0 ~f:(+) 
+
+let () = printf "Sum : %d\n" sum
 

@@ -6,3 +6,6 @@ lib: [
 bin: [
   "_build/install/default/bin/aoc"
 ]
+doc: [
+  "_build/install/default/doc/aoc/README.md"
+]
